@@ -1,0 +1,58 @@
+<ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="static-1">
+    <ngb-panel id="static-1" title="Item Details">
+      <ng-template ngbPanelContent>
+
+          <div id="collapseExample" [ngbCollapse]="false">
+              <div class="card">
+                <div class="card-body">
+                 <h4 style="color:chocolate">Items in your cart:
+                  <button *ngIf="allTotal!==0" style="margin-inline-start: 3%; margin-bottom: 5px;" class="btn btn-outline-success" (click)="removeAllItems()">Remove All Items</button>
+
+                    <span style="margin-inline-start: 25%; color:blue;">
+                    Total amount: ${{allTotal}}
+                    <button *ngIf="allTotal!==0" routerLink='/checkout' (click)="removeAllItems()" style="margin-inline-start: 3%; margin-bottom: 5px;" class="btn btn-outline-success" >Submit Order</button>
+                </span>
+                    
+            </h4>
+
+            <h2 *ngIf="allTotal==0; else elseblock">
+              Your cart is currently empty!
+            </h2>
+
+            <ng-template #elseblock>
+                    
+                    <table class="table table-bordered table-responsive table-hover">
+                      <thead class="thead-light">
+                      <tr>
+                        <th>Image</th>
+                        <th>Name & Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Add/Remove Items</th>
+                        <th>Total Amount for Item</th>
+                      </tr>
+                      </thead>
+                      <tr *ngFor="let prod of productAddedTocart;let q = index">
+                        <td><img src="https://elasticbeanstalk-ca-central-1-645720678044.s3.ca-central-1.amazonaws.com/{{prod.image}}.jpg" width="160px;" height="200px;"/></td>
+                        <td class="text-center">{{prod.name}}-{{prod.description}}</td>
+                        <td>${{prod.unitPrice}}</td>
+                        <td>{{prod.quantity}}</td>
+                        <td>
+                          <div class="form-inline">
+                          <button type="button" (click)="onAddQuantity(prod)" class="btn btn-success">+</button> 
+                          <input type="text" readonly [ngModel] ="prod.quantity" (ngModelChange) ="prod.quantity=$event" class="form-control form-inline" id="count">
+                          <button type="button" (click)="onRemoveQuantity(prod)" class="btn btn-danger">-</button>
+                          </div>
+                        </td>
+                        <td>${{prod.unitPrice * prod.quantity}}</td>
+                      </tr>
+                    </table>
+
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+      </ng-template>
+    </ngb-panel>
+
+  </ngb-accordion>

@@ -1,0 +1,30 @@
+
+<div id="collapseExample" [ngbCollapse]="false">
+    <div class="card">
+      <div class="card-body">
+        <p *ngFor="let alert of alerts">
+          <ngb-alert style="width: 300px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+        </p>
+                   <table class="table table-bordered table-responsive" style="display: inline;margin-left: 5px;" *ngFor="let prod of allProducts">
+                 <tr>
+                   <td>
+                      <img src="https://elasticbeanstalk-ca-central-1-645720678044.s3.ca-central-1.amazonaws.com/{{prod.image}}.jpg" width="160px;" height="200px;"/>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>{{prod.name}}</td>
+                 </tr>
+                 <tr>
+                   <td>Price: ${{prod.unitPrice}}</td>
+                 </tr>
+                 <tr>
+                    <td>{{prod.description}}</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <button type="button"   class="btn btn-outline-success" (click)="OnAddCart(prod)"><b>Add to cart</b></button>
+                      </td>
+                    </tr>
+               </table>
+  </div>
+  
